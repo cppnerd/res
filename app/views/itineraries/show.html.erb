@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Guest:</b>
+  <%= @itinerary.guest %>
+</p>
+
+<p>
+  <b>Flight:</b>
+  <%= @itinerary.flight %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @itinerary.date %>
+</p>
+
+<p>
+  <b>Confirmation:</b>
+  <%= @itinerary.confirmation %>
+</p>
+
+
+<%= link_to 'Edit', edit_itinerary_path(@itinerary) %> |
+<%= link_to 'Back', itineraries_path %>

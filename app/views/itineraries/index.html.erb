@@ -1,0 +1,29 @@
+<h1>Listing itineraries</h1>
+
+<table>
+  <tr>
+    <th>Guest</th>
+    <th>Flight</th>
+    <th>Date</th>
+    <th>Confirmation</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @itineraries.each do |itinerary| %>
+  <tr>
+    <td><%= itinerary.guest %></td>
+    <td><%= itinerary.flight %></td>
+    <td><%= itinerary.date %></td>
+    <td><%= itinerary.confirmation %></td>
+    <td><%= link_to 'Show', itinerary %></td>
+    <td><%= link_to 'Edit', edit_itinerary_path(itinerary) %></td>
+    <td><%= link_to 'Destroy', itinerary, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Itinerary', new_itinerary_path %>

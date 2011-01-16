@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  guest: 
+  flight: 
+  date: 2011-01-15
+  confirmation: MyString
+
+two:
+  guest: 
+  flight: 
+  date: 2011-01-15
+  confirmation: MyString

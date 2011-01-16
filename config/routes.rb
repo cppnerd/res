@@ -1,4 +1,12 @@
 Res::Application.routes.draw do
+  resources :airports
+
+  resources :itineraries
+
+  resources :passengers
+
+  resources :flights
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
