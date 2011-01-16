@@ -13,6 +13,14 @@ class Flight < ActiveRecord::Base
   after_update  :normalize_times_to_gmt # must be AFTER update, or time zones will be wrong
 
 
+  def departure_time_local
+    (self.departure + self.origin.timezone.offset.hours).strftime('%H:%M')
+  end
+  
+  def arrival_time_local
+    (self.arrival + self.destination.timezone.offset.hours).strftime('%H:%M')
+  end
+
   def calculate_arrival_time
     self.arrival = self.departure + self.flight_time.minutes
   end
