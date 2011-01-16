@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :origin %><br />
-    <%= f.text_field :origin %>
+    <%= f.select :origin, Airport.list(:order => "country, state, code"), :include_blank => true %>
   </div>
   <div class="field">
     <%= f.label :destination %><br />
@@ -30,4 +30,25 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+
+<%
+grouped_options = [
+  ['Group 1',
+    ["Item 1", "Item 2", "Item 3"]],
+  ['Group 2',
+    ["Item 1", "Item 2", "Item 3", "Item 4"]]
+]%>
+<%= f.select :destination, grouped_options_for_select(grouped_options)%>
 <% end %>
+<hr/>Go:<br/>
+    <%
+      @airports = Airport.all
+
+      #@airports.group_by{|ap| ap.country}.each do |c,airport|
+      @airports.each do |a|
+    %>
+    <%= "Name: #{a.name}, Country: #{a.country}" %><br/>
+    <%
+      end
+    %>
+

@@ -23,6 +23,10 @@ ActiveRecord::Schema.define(:version => 20110116033608) do
     t.string   "country"
   end
 
+  create_table "countries", :primary_key => "code", :force => true do |t|
+    t.string "name", :limit => 200, :default => "", :null => false
+  end
+
   create_table "flights", :force => true do |t|
     t.integer  "number"
     t.string   "origin"
@@ -49,6 +53,11 @@ ActiveRecord::Schema.define(:version => 20110116033608) do
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "states", :force => true do |t|
+    t.string "name", :limit => 32, :null => false
+    t.string "abbr", :limit => 8
   end
 
 end

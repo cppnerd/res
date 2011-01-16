@@ -1,3 +1,22 @@
+<script type="text/javascript">
+  jQuery(function($) {
+    $('select#airport_country').val('US');
+    $('select#airport_country').change(function ()
+    {
+        if ($(this).val() != 'US')
+        {
+            $('#airport_state').parent().fadeOut('fast');
+            //$('select#airport_state').css('disabled','disabled');
+        }
+        else
+        {
+            $('#airport_state').parent().fadeIn('fast');
+        }
+
+    });
+  });
+</script>
+
 <%= form_for(@airport) do |f| %>
   <% if @airport.errors.any? %>
     <div id="error_explanation">
@@ -19,6 +38,22 @@
     <%= f.label :active %><br />
     <%= f.check_box :active %>
   </div>
+<div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+<div class="field">
+    <%= f.label :city %><br />
+    <%= f.text_field :city %>
+</div>
+<div class="field">
+    <%= f.label :state %><br />
+    <%= f.select :state, State.list(:order => "name ASC"), :include_blank => true %>
+</div>
+<div class="field">
+    <%= f.label :country %><br />
+    <%= f.select :country, Country.list(:order => "name ASC") %>
+</div>
   <div class="actions">
     <%= f.submit %>
   </div>
