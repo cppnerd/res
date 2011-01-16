@@ -1,3 +1,30 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#flight_time_user').change(function() {
+        var t = $(this).val();
+        if (t[0] == '0')
+          t = t.substr(1);
+
+        var colon = t.indexOf(':');
+        var hours = "0";
+        var mins  = "0";
+        if (colon != -1) //we have an hours value
+        {
+          hours = t.substr(0,colon);
+          if (hours == "")
+             hours = "0";
+
+          mins = t.substr((colon+1),2);
+          if (mins == "")
+            mins = "0";
+        }
+        var h = parseInt(hours) * 60;
+        var m = parseInt(mins) + h
+        $('#flight_flight_time').val(m);
+    });
+  });
+
+</script>
 <%= form_for(@flight) do |f| %>
   <% if @flight.errors.any? %>
     <div id="error_explanation">
@@ -17,11 +44,24 @@
   </div>
   <div class="field">
     <%= f.label :origin %><br />
-    <%= f.select :origin, Airport.list(:order => "country, state, code"), :include_blank => true %>
+    <%= f.select :origin_airport_id, grouped_options_for_select(airport_list_by_country(:order => "code, state, country_code")), :include_blank => true %>
   </div>
   <div class="field">
     <%= f.label :destination %><br />
-    <%= f.text_field :destination %>
+    <%= f.select :destination_airport_id, grouped_options_for_select(airport_list_by_country(:order => "code, state, country_code")), :include_blank => true %>
+  </div>
+  <div class="field">
+    <%= f.label :departure %><br/>
+    <%= f.text_field :departure %>
+  </div>
+  <div class="field">
+    <%= f.label :flight_time %>
+    <input type="text" id="flight_time_user" />
+    <%= f.hidden_field :flight_time %>
+  </div>
+  <div class="field">
+    <%= f.label :arrival %><br/>
+    <%= f.text_field :arrival %>
   </div>
   <div class="field">
     <%= f.label :active %><br />
@@ -30,25 +70,4 @@
   <div class="actions">
     <%= f.submit %>
   </div>
-
-<%
-grouped_options = [
-  ['Group 1',
-    ["Item 1", "Item 2", "Item 3"]],
-  ['Group 2',
-    ["Item 1", "Item 2", "Item 3", "Item 4"]]
-]%>
-<%= f.select :destination, grouped_options_for_select(grouped_options)%>
-<% end %>
-<hr/>Go:<br/>
-    <%
-      @airports = Airport.all
-
-      #@airports.group_by{|ap| ap.country}.each do |c,airport|
-      @airports.each do |a|
-    %>
-    <%= "Name: #{a.name}, Country: #{a.country}" %><br/>
-    <%
-      end
-    %>
-
+<%end%>

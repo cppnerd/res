@@ -10,17 +10,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110116033608) do
+ActiveRecord::Schema.define(:version => 20110116082615) do
 
   create_table "airports", :force => true do |t|
     t.string   "code"
-    t.boolean  "active",     :default => true, :null => false
+    t.boolean  "active",                    :default => true, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
     t.string   "city"
     t.string   "state"
-    t.string   "country"
+    t.string   "country_code", :limit => 2
+    t.integer  "timezone_id"
   end
 
   create_table "countries", :primary_key => "code", :force => true do |t|
@@ -29,13 +30,14 @@ ActiveRecord::Schema.define(:version => 20110116033608) do
 
   create_table "flights", :force => true do |t|
     t.integer  "number"
-    t.string   "origin"
-    t.string   "destination"
-    t.boolean  "active",      :default => true, :null => false
+    t.integer  "origin_airport_id",      :limit => 2
+    t.integer  "destination_airport_id", :limit => 2
+    t.boolean  "active",                              :default => true, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.time     "departure"
     t.time     "arrival"
+    t.integer  "flight_time"
   end
 
   create_table "itineraries", :force => true do |t|
@@ -59,5 +61,12 @@ ActiveRecord::Schema.define(:version => 20110116033608) do
     t.string "name", :limit => 32, :null => false
     t.string "abbr", :limit => 8
   end
+
+  create_table "timezones", :force => true do |t|
+    t.string "GMT",  :limit => 6,  :null => false
+    t.string "name", :limit => 75, :null => false
+  end
+
+  add_index "timezones", ["GMT"], :name => "GMT", :unique => true
 
 end

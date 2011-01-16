@@ -6,6 +6,10 @@ class Country < ActiveRecord::Base
     where(:abbr => a)
   }
 
+  def to_s
+    self.name
+  end
+  
   def self.list(opts={})
     Country.find(:all, opts).collect{|c| [c.name,c.code]}
   end

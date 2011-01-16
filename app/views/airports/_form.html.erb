@@ -52,7 +52,11 @@
 </div>
 <div class="field">
     <%= f.label :country %><br />
-    <%= f.select :country, Country.list(:order => "name ASC") %>
+    <%= f.select :country_code, Country.list(:order => "name ASC") %>
+</div>
+<div class="field">
+  <%= f.label :timezone_id %>
+    <%= f.select :timezone_id, Timezone.list(:order => "GMT ASC") %>
 </div>
   <div class="actions">
     <%= f.submit %>

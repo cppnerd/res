@@ -1,11 +1,12 @@
 class Airport < ActiveRecord::Base
 
-  validates :name, :code, :city, :presence => true
+  validates :name, :code, :city, :country, :timezone, :presence => true
   validates :state, :presence => true, :if => :in_united_states?
   validates :code, :uniqueness => true
 
-  belongs_to :country, :foreign_key => 'code'
-  has_many :flights
+  belongs_to :country, :foreign_key => 'country_code'
+  belongs_to :timezone
+  #has_many :flights
 
   def in_united_states?
     ['US'].include?(country)
