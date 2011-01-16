@@ -12,6 +12,9 @@ class Airport < ActiveRecord::Base
     ['US'].include?(country)
   end
 
+  def to_s
+    return "#{self.name} (#{self.code})"
+  end
   def self.list(opts={})
     Airport.find(:all, opts).collect{|a| ["#{a.code} - #{a.name}","#{a.code}"]}
   end
